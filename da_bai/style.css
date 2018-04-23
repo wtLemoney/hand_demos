@@ -125,18 +125,18 @@ body{
     background-color:#fff;
     position: relative;
     top:-660px;
-    left:188px;
+    left:-50px;
     border-radius: 18% 30% 15% 50%;
     transform: rotate(1deg);
     z-index:-2;
-    /* margin:0 auto; */
+    margin:0 auto;
 }
 #right-leg{
     /* margin:0 auto; */
     border-radius: 18% 20% 50% 15%;
     transform: rotate(-1deg);
     top:-820px;
-    left:293px;
+    left:53px;
 
 
 
