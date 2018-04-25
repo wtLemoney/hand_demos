@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网页版别踩白块游戏</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 分数展示 -->
+
+        <h2>score</h2>
+        <h2 id="score">0</h2>
+
+    <!-- 将主界面分解成一个4*4的大矩形格子 -->
+    <!-- 每一行有一个随机黑块 -->
+    <div id="main">
+        <div id="con"></div>
+    </div>
+    <div id="start">
+        <button onclick="begin()">点击开始游戏</button>
+    </div>
+    <script src="act.js"></script>
+</body>
+</html>

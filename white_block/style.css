@@ -1,0 +1,35 @@
+h2{
+    text-align: center;
+}
+#main{
+    width: 400px;
+    height: 400px;
+    background: white;
+    border:2px solid gray;
+    margin: 0 auto;
+    overflow: hidden;//超出部分隐藏
+}
+#con{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: -100px;//隐藏四行中的第一行
+    border-collapse: collapse;//边框会合并为一个单一的边框。会忽略 border-spacing 和 empty-cells 属性
+}
+.row{
+    width:100%;
+    height:100px;
+}
+.cell{
+    height: 100px;
+    width: 100px;
+    float: left;//.cell必须浮动
+
+}
+.black{
+    background: black;
+}
+#start{
+    margin:10px auto;
+    text-align: center;
+}
