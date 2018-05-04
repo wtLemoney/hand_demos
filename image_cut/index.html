@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基于 HTML5 实现本地图片裁剪</title>
+    <style>
+        body{
+            text-align: center;
+        }
+        #label{
+            border:1px solid #ccc;
+            width: 298px;
+            height: 298px;
+            margin: 20px auto;
+            position: relative;
+        }
+        #get_image{
+            position: absolute;
+        }
+        #edit_pic{
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #000;
+            display: none;
+            border: 1px solid purple;
+        }
+        #cover_box{
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 20px;
+            border: 1px solid red;
+            display: none;
+        }
+
+        #show_edit{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border: 1px solid pink;
+            overflow: hidden;
+        }
+        #show_pic{
+            display: inline-block;
+            width: 100px;
+            height: 100px;
+            border: 2px solid #000;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" name="file" id="post_file">
+    <button id="save_button">SAVE</button>
+
+    <div id="label">
+        <!-- 导入图片的显示 -->
+        <canvas id="get_image"></canvas>
+        <p>
+            <!-- 图片的遮罩 -->
+            <canvas id="cover_box"></canvas>
+            <!-- 裁剪图片区域 -->
+            <canvas id="edit_pic"></canvas>
+        </p>
+    </div>
+
+    <p>
+        <span id="show_edit"></span>
+        <span id="show_pic"><img src="" alt=""></span>
+    </p>
+
+    <script src="main.js"></script>
+</body>
+</html>
