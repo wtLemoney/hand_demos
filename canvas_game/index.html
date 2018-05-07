@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>基于 HTML5 canvas 实现小游戏</title>
+</head>
+<body>
+    
+    <script>
+        //1创建画布
+        var canvas=document.createElement("canvas");
+        var ctx=canvas.getContext("2d");
+        canvas.width=512;
+        canvas.height=480;
+        document.body.appendChild(canvas);
+
+        //2准备图片
+            //背景图片
+        var bgReady=false;
+        var bgImage=new Image();
+        bgImage.onload=function(){
+            bgReady=true;
+        };
+        bgImage.src="images/background.png";
+            //英雄图片
+        var heroReady=false;
+        var heroImage=new Image();
+        heroImage.onload=function(){
+            heroReady=true;
+        };
+        heroImage.src="images/hero.png";
+            //怪兽图像
+        var monsterReady=false;
+        var monsterImage=new Image();
+        monsterImage.onload=function(){
+            monsterReady=true;
+        };
+        monsterImage.src="images/monster.png";
+        
+        //3游戏对象
+        var hero={
+            speed:256 //每秒移动多少个像素
+        };
+        var monster={};
+        var monstersCaught=0;//存储怪物被捉住的次数
+
+        //4处理用户的输入
+        var keysDown={};
+        addEventListener("keydown",function(e){
+            keysDown[e.keyCode]=true;//e.keyCode按键的unicode值
+        },false);
+        addEventListener("keyup",function(e){
+            delete keysDown[e.keyCode];
+        },false);
+
+        //5开始一轮游戏
+        var reset=function(){
+            //将英雄放在画布的中间
+            hero.x=canvas.width/2;
+            hero.y=canvas.height/2;
+            //将怪兽放在随机的地方
+            monster.x=32+Math.random()*(canvas.width-64);//怪兽图像的像素为32px
+            monster.y=32+Math.random()*(canvas.height-64);
+        }
+
+        //6更新对象
+        var update=function(modifier){//modifier这个值能保证英雄移动的速度是恒定的
+            if(37 in keysDown){//左翻箭头
+                hero.x-=hero.speed*modifier;
+            }
+            if(38 in keysDown){//上翻箭头
+                hero.y-=hero.speed*modifier;
+            }
+            if(39 in keysDown){//右
+                hero.x+=hero.speed*modifier;
+            }
+            if(40 in keysDown){//下
+                hero.y+=hero.speed*modifier;
+            }
+
+            if(hero.x<=(monster.x+32) && hero.x>=(monster.x-32)
+                && hero.y<=(monster.y+32) && hero.y>=(monster.y-32)){
+                    ++monstersCaught;
+                    reset();
+                }
+        }
+
+        //7渲染物体
+        var render=function(){
+            if(bgReady){
+                ctx.drawImage(bgImage,0,0);
+            }
+            if(heroReady){
+                ctx.drawImage(heroImage,hero.x,hero.y);
+            }
+            if(monsterReady){
+                ctx.drawImage(monsterImage,monster.x,monster.y);
+            }
+
+            ctx.fillStyle="rgb(250,250,250)";
+            ctx.font="24px Helvetica";
+            ctx.textAlign="left";
+            ctx.textBaseline="top";
+            ctx.fillText("抓住的怪兽数："+monstersCaught,32,32);
+        }
+
+        //8主循环函数
+        var main=function(){
+            var now=Date.now();
+            var delta=now-then;//拿到距离上次调用主函数的时间差
+            update(delta/1000);//
+            render();
+
+            then=now;
+            requestAnimationFrame(main);
+        }
+
+        //9设置requestAnimationFrame()
+        var w = window;
+        requestAnimationFrame = w.requestAnimationFrame || 
+                                w.webkitRequestAnimationFrame || 
+                                w.msRequestAnimationFrame || 
+                                w.mozRequestAnimationFrame;
+
+
+        //10启动游戏
+        var then=Date.now();
+        reset();
+        main();
+    </script>
+</body>
+</html>
