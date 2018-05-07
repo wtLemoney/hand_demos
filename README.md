@@ -34,3 +34,9 @@ CSS的知识很多很零散，不经常使用的忘得更快，所以找了这�
 HTML5 有很多好玩的特性，本实验利用 HTML5 的 canvas 技术，结合HTML5的 File API来实现图片的本地裁剪，从一个大图片中选取裁剪区域，然后再进行保存。从中学到了 HTML5 中图片处理的一些 API 以及 JavaScript 代码封装。
 
 后续：考虑实现改变截图区域拖动框的大小。
+
+[6.基于 HTML5 canvas 实现一个简单的小游戏](https://github.com/wtLemoney/hand_demos/blob/master/canvas_game/index.html)
+
+本游戏demo的目的是熟悉canvas游戏开发，可以根据这个小练习，了解小游戏开发的流程，以一小块一小块的功能实现，由游戏体验还可以慢慢改进，得到最后的产品。
+
+后续：hero角色的小人会通过按键移出背景图片外，可以设置人物活动边界。每一次hero捕获到monster，hero会回到画布中间，可以设置捕捉到monster的时候让hero就停留在捕获的位置，不再回到画布中央。
