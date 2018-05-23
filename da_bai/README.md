@@ -1,3 +1,3 @@
-# 纯CSS画大白
+### 纯CSS画大白 ###
 
-![avatar](bai.jpg)
+<img src="bai.jpg"  height="250" width="340">

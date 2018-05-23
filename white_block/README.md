@@ -1,4 +1,4 @@
-# 别踩白块儿网页版游戏
+### 别踩白块儿网页版游戏 ###
 
-![avatar](white_block.jpg)
 
+<img src="white_block.jpg"  height="450" width="540">

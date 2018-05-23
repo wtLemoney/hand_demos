@@ -1,4 +1,5 @@
 
-# 网页版拼图游戏
+### 网页版拼图游戏 ###
 
-![avatar](puz.jpg)
+
+<img src="puz.jpg"  height="350" width="350">

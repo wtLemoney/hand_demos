@@ -1,3 +1,4 @@
-# 按钮提示框-SASS
+### 按钮提示框-SASS ###
 
-![avatar](btn.jpg)
+
+<img src="btn.jpg"  height="250" width="580">
