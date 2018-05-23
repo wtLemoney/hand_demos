@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>绚丽小球</title>
+
+    <style>
+        #canvas{
+            background-color: black;
+            margin: 100px;
+            box-shadow: 0 0 10px #000; /* 水平阴影的位置，垂直阴影的位置，（模糊距离，阴影的尺寸，阴影的颜色，默认.外部阴影/内部阴影）*/
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas">当前的浏览器不支持该版本！</canvas><!--IE8及更早的版本不支持canvas标签-->
+    <script src="http://underscorejs.org/underscore-min.js"></script>
+    <!-- Underscore一个JavaScript实用库，提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象。 -->
+    <script>
+         // 1.获取当前的画布
+         const canvas = document.getElementById('canvas');
+         const ctx = canvas.getContext('2d');//返回一个表示用来绘制的环境类型的变量
+         canvas.width = 650;//不需要设置单位。默认为像素
+         canvas.height = 500;
+         canvas.style.backgroundColor = '#000';
+
+         // 2.小球类
+         class Ball{
+             //构造器
+             constructor(x,y,color){
+                 this.x = x;
+                 this.y = y;
+                 this.color = color;
+                 this.r = 30;
+             }
+             //绘制小球
+             render(){
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                ctx.restore();
+             }
+         }
+         //3.会移动的小球类
+         class MoveBall extends Ball{
+             constructor(x,y,color){//可以通过super来调用父类的参数
+                 super(x,y,color);//super 作为函数调用时，代表父类的构造函数。ES6 要求，子类的构造函数必须执行一次 super()。
+                 //量的变化
+                 this.dX = _.random(-10,10);
+                 this.dY = _.random(-10,10);
+                 this.dR = _.random(1,3);
+             }
+             upDate(){
+                 this.x += this.dX;
+                 this.y += this.dY;
+                 this.r -=this.dR;
+                 if(this.r<0){
+                     this.r = 0;
+                 }
+             }
+         }
+
+         //4.实例化小球
+         let ballArr = [];
+         let colorArr = ['red','purple','blue','pink','yellow','green','gray','white','orange','silver','wine'];
+     
+
+         //5.监听鼠标的移动
+         canvas.addEventListener('mousemove',function(e){
+             ballArr.push(new MoveBall(e.offsetX,e.offsetY,colorArr[_.random(0, colorArr.length-1)]));
+         }); 
+
+         //6.开启定时器
+        setInterval(function(){
+             //清除
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+             //绘制
+            //  let colorArr = '#'+(Math.random())
+         
+            for(let i = 0;i < ballArr.length; i++){
+                ballArr[i].render();
+                ballArr[i].upDate();
+            }
+        },100);
+
+    </script>
+</body>
+</html>
