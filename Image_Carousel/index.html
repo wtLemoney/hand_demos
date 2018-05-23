@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片轮播</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul,ol{
+            list-style: none;
+        }
+        img{
+            display: block;
+        }
+       .carousel{
+            width: 880px;
+            height: 550px;
+            border: 1px solid red;
+            margin: 50px auto;
+            overflow: hidden;/*超出部分隐藏*/
+            position: relative;
+        }
+        .btns a{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top: 50%;
+            margin-top: -27.5px;
+        }
+        .btns a.left{
+            background: url(images/btnL.png) no-repeat;
+            left: 18px;
+        }
+        .btns a.right{
+            background: url(images/btnR.png) no-repeat;
+            right: 18px;
+        }
+        .ctrl{
+            position: absolute;
+            bottom: 28px;
+            width: 168px;
+            left: 50%;
+            padding-left: 8px;
+            margin-left: -88px;
+        }
+         .ctrl li{
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            text-align: center;
+            margin-right: 8px;
+            line-height: 20px;
+            float: left;
+            cursor: pointer;
+        }
+        .ctrl li.current{
+            background-color: red;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="carousel"> 
+        <div id="contents">
+            <ul>
+                <li><a href=""><img src="images/c1.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/c2.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/c3.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/c4.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/c5.jpg" alt=""></a></li>
+                <li><a href=""><img src="images/c6.jpg" alt=""></a></li>
+            </ul>
+        </div>
+
+        <div class="btns">
+                <a href="javascript:;" class="left" id="btnL"></a><!--href="javascript:;" 去掉a标签的默认行为，执行一段自己的js代码-->
+                <a href="javascript:;" class="right" id="btnR"></a>
+        </div>
+
+        <div class="ctrl" id="ctrl">
+            <ul>
+                <li class="current">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+            </ul>
+        </div>
+    </div> 
+
+
+    <script>
+        //定义当前图片显示的索引号
+        var index = 0;
+
+        //找到相关元素
+        var box = document.getElementsByClassName("carousel");
+        var btnL = document.getElementById("btnL");
+        var btnR = document.getElementById("btnR");
+        var contents = document.getElementById("contents");
+        var imgs = contents.getElementsByTagName("li");
+        var ctrl = document.getElementById("ctrl");
+        var circles = ctrl.getElementsByTagName("li");
+
+        //绑定左按钮单击事件
+        btnL.onclick = function(){
+            index--;
+            if(index < 0){
+                index = imgs.length-1;
+            }
+            //让图片和序号对应
+            change(index);
+        }        
+        //绑定右按钮单击事件
+        btnR.onclick = function(){
+            index++;
+            if(index > imgs.length-1){
+                index = 0;
+            }
+            //让图片和序号对应
+            change(index);
+        }
+        
+        //小圆圈点击事件了
+            for(var r=0; r<circles.length; r++){
+                circles[r].index = r;
+                circles[r].onclick = function(){
+            //         var j=this.index;
+            //         for(var i=0; i<imgs.length; i++){
+            //             imgs[i].style.display = "none";
+            // }
+            //             imgs[j].style.display = "block";
+            //         for(var s=0; s<circles.length;s++){
+            //             circles[s].style.backgroundColor = "#fff";
+            // }
+            //     //2 背景色设置黄色
+            //         circles[j].style.backgroundColor = "red";    
+                var index = this.index;
+                change(index);
+                    }
+            }
+                
+        function change(index){
+            //让对应序号的图片显示
+            //1隐藏所有图片
+            for(var i=0; i<imgs.length; i++){
+                imgs[i].style.display = "none";
+            }
+            //2让对应index的图片显示
+            imgs[index].style.display = "block";
+            
+            //小圆圈设置样式
+            //1 还原默认色
+            for(var j=0; j<circles.length;j++){
+                circles[j].style.backgroundColor = "#fff";
+            }
+            //2 背景色设置黄色
+                circles[index].style.backgroundColor = "red";
+            
+        }
+
+        //实现轮播自动播放
+        var time;
+        function play(){
+            time = setInterval(function(){
+                btnR.onclick();
+            },2000)
+            };
+
+        clearInterval(time);
+        play();
+
+            //鼠标移入轮播暂停，鼠标移出轮播重新开始
+        contents.onmouseover=function(){
+            clearInterval(time);
+            contents.onmouseout=function(){
+            play();
+        };
+        };
+
+
+
+
+    </script>
+</body>
+</html>
